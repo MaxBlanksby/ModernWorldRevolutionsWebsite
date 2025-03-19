@@ -1,117 +1,319 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI vs. Industrial Revolutions</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background: #121212;
-            color: #fff;
-            text-align: center;
-        }
-        header {
-            background: #1f1f1f;
-            padding: 20px;
-            font-size: 28px;
-            font-weight: bold;
-            letter-spacing: 1px;
-        }
-        section {
-            padding: 40px;
-        }
-        .group {
-            max-width: 900px;
-            margin: auto;
-            padding: 20px;
-            background: #222;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
-        }
-        .group-title {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            border-bottom: 2px solid #1f78d1;
-            display: inline-block;
-            padding-bottom: 5px;
-        }
-        .artifact-container {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
-        }
-        .artifact-box {
-            background: linear-gradient(135deg, #2a2a2a, #444);
-            padding: 20px;
-            border-radius: 15px;
-            width: 250px;
-            box-shadow: 0 0 15px rgba(0, 150, 255, 0.3);
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-            cursor: pointer;
-        }
-        .artifact-box:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(0, 150, 255, 0.5);
-        }
-        a {
-            text-decoration: none;
-            color: white;
-            display: block;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Modern World Revolutions</title>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+  />
+  <style>
+    /* Overall Body Styling */
+    body {
+      background-color: black;
+      color: white;
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    .container {
+      width: 80%;
+      margin: auto;
+      padding-top: 30px;
+      text-align: center;
+    }
+
+    /* Introduction Section */
+    .introduction {
+      margin-bottom: 20px;
+    }
+    .introduction p {
+      font-size: 1.2em;
+      line-height: 1.5em;
+      margin: 0 auto 20px auto;
+      max-width: 700px;
+    }
+
+    /* Title */
+    h1 {
+      font-size: 3em;
+      text-shadow: 2px 2px 10px rgba(255, 0, 0, 0.8);
+      margin-bottom: 40px;
+    }
+
+    /* Section Headings for Grouped Artifacts */
+    .group-heading {
+      font-size: 2.2em;
+      margin-top: 40px;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 10px rgba(255, 0, 0, 0.8);
+    }
+
+    /* Artifact Buttons Container */
+    .artifact-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 60px;
+    }
+
+    /* Buttons + Startup Animations */
+    .artifact-btn {
+      background: none;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .artifact-btn img {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0px 0px 15px rgba(255, 0, 0, 0.5);
+    }
+    .artifact-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0px 0px 25px rgba(255, 0, 0, 0.8);
+    }
+
+    /* Hidden state for fade-in effect */
+    .hidden-artifact {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+
+    /* Visible state after fade-in */
+    .show-artifact {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Modal styling */
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed;
+      z-index: 999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+    .modal-content {
+      background-color: #333;
+      margin: 5% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 60%;
+      max-width: 800px;
+      position: relative;
+      color: #fff;
+      border-radius: 5px;
+      text-align: left;
+    }
+    .modal-content h2 {
+      margin-top: 0;
+      text-align: center;
+      text-shadow: 2px 2px 10px rgba(255, 0, 0, 0.8);
+    }
+    .modal-content img {
+      display: block;
+      margin: 10px auto;
+      max-width: 100%;
+      border-radius: 5px;
+    }
+    .modal-content p {
+      margin: 20px auto;
+      font-size: 1.2em;
+      max-width: 90%;
+      text-align: center;
+    }
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      position: absolute;
+      right: 20px;
+      top: 10px;
+      cursor: pointer;
+    }
+    .close:hover,
+    .close:focus {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    /* Sections Below Artifacts */
+    .comparison-section,
+    .conclusion-section,
+    .sources-section {
+      margin: 50px 0;
+      text-align: left;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .comparison-section h2,
+    .conclusion-section h2,
+    .sources-section h2 {
+      font-size: 2em;
+      margin-bottom: 15px;
+      text-shadow: 2px 2px 10px rgba(255, 0, 0, 0.8);
+    }
+    .comparison-section p,
+    .conclusion-section p,
+    .sources-section p,
+    .sources-section ul {
+      font-size: 1.2em;
+      line-height: 1.6em;
+    }
+
+  </style>
 </head>
 <body>
-    <header>AI Revolution vs. Industrial Revolutions</header>
-    <section>
-        <p>The Industrial Revolutions transformed manufacturing, transport, and economies. The AI Revolution is reshaping intelligence, automation, and digital landscapes. Explore their impact.</p>
+  <div class="container">
+    <!-- Introduction Section -->
+    <div class="introduction">
+      <p>
+        In the ever-changing tapestry of the modern world, revolutions and innovations intertwine,
+        shaping our future. Explore these artifacts that highlight pivotal moments in technological
+        and industrial evolution.
+      </p>
+    </div>
 
-        <!-- Industrial Revolution Section -->
-        <div class="group">
-            <div class="group-title">Industrial Revolution</div>
-            <div class="artifact-container">
-                <a href="/artifact/Steam Power" class="artifact-box">
-                    <h3>Steam Power</h3>
-                    <p>Transformed transportation and production.</p>
-                </a>
-                <a href="/artifact/Factory System" class="artifact-box">
-                    <h3>Factory System</h3>
-                    <p>Introduced mass production techniques.</p>
-                </a>
-                <a href="/artifact/Electricity" class="artifact-box">
-                    <h3>Electricity</h3>
-                    <p>Revolutionized manufacturing and daily life.</p>
-                </a>
-            </div>
-        </div>
+    <!-- Title -->
+    <h1>Surveillance &amp; The Modern World</h1>
 
-        <!-- AI Revolution Section -->
-        <div class="group">
-            <div class="group-title">AI Revolution</div>
-            <div class="artifact-container">
-                <a href="/artifact/Machine Learning" class="artifact-box">
-                    <h3>Machine Learning</h3>
-                    <p>Driving AI decision-making processes.</p>
-                </a>
-                <a href="/artifact/Automation" class="artifact-box">
-                    <h3>Automation</h3>
-                    <p>Redefining labor and industry.</p>
-                </a>
-                <a href="/artifact/Generative AI" class="artifact-box">
-                    <h3>Generative AI</h3>
-                    <p>Creating content, art, and code.</p>
-                </a>
-            </div>
-        </div>
-    </section>
-    <footer>
-        &copy; 2025 AI vs. Industrial Revolutions | All Rights Reserved
-    </footer>
+    <!-- AI Revolution Section -->
+    <div id="aiSection">
+      <h2 class="group-heading">AI Revolution</h2>
+      <div id="aiButtonsContainer" class="artifact-buttons"></div>
+    </div>
+
+    <!-- Industrial Revolution Section -->
+    <div id="industrialSection">
+      <h2 class="group-heading">Industrial Revolution</h2>
+      <div id="industrialButtonsContainer" class="artifact-buttons"></div>
+    </div>
+
+    <!-- Comparison Piece -->
+    <div class="comparison-section">
+      <h2>Comparison Piece</h2>
+      <p>
+        Compare how industrial and technological revolutions have impacted human labor,
+        societal norms, and global economies.
+      </p>
+    </div>
+
+    <!-- Conclusion -->
+    <div class="conclusion-section">
+      <h2>Conclusion</h2>
+      <p>
+        From steam engines to artificial intelligence, each revolution leaves a profound imprint
+        on humanity's trajectory. Understanding these shifts can guide us toward a more mindful,
+        equitable future.
+      </p>
+    </div>
+
+    <!-- Sources -->
+    <div class="sources-section">
+      <h2>Sources</h2>
+      <ul>
+        <li>Author, A. (Year). Title of the source. Publisher.</li>
+        <li>Author, B. (Year). Another reference. Journal/Website/Publisher.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Modal for Artifact Details -->
+  <div id="artifactModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2 id="modalTitle"></h2>
+      <!-- First Image -->
+      <img id="modalImage" src="" alt="Artifact Image" />
+      <!-- Text displayed between images -->
+      <p id="modalText"></p>
+      <!-- Second Image (derived from the first image by replacing '1' with '2') -->
+      <img id="modalImage2" src="" alt="Artifact Secondary Image" />
+    </div>
+  </div>
+
+  <!-- JavaScript to Fetch Artifacts & Handle Modal -->
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      try {
+        const response = await fetch('/artifacts');
+        const artifacts = await response.json();
+
+        // Separate artifacts into AI and Industrial groups
+        const aiArtifacts = [];
+        const industrialArtifacts = [];
+
+        artifacts.forEach((artifact) => {
+          // Grouping criteria: "AlphaGo", "ChatGPT", and "World Economic Reports" belong to AI
+          if (artifact.title === "AlphaGo" || artifact.title === "ChatGPT" || artifact.title === "World Economic Reports") {
+            aiArtifacts.push(artifact);
+          } else {
+            industrialArtifacts.push(artifact);
+          }
+        });
+
+        // Function to create buttons in a given container
+        function createArtifactButtons(containerId, artifactArray) {
+          const container = document.getElementById(containerId);
+          artifactArray.forEach((artifact, index) => {
+            const btn = document.createElement('button');
+            btn.classList.add('artifact-btn', 'hidden-artifact');
+            btn.innerHTML = `<img src="${artifact.image}" alt="${artifact.title}" />`;
+
+            btn.addEventListener('click', () => {
+              showArtifactInfo(artifact);
+            });
+
+            container.appendChild(btn);
+
+            // Staggered fade-in animation
+            setTimeout(() => {
+              btn.classList.remove('hidden-artifact');
+              btn.classList.add('show-artifact');
+            }, index * 300);
+          });
+        }
+
+        createArtifactButtons('aiButtonsContainer', aiArtifacts);
+        createArtifactButtons('industrialButtonsContainer', industrialArtifacts);
+
+      } catch (error) {
+        console.error('Error fetching artifacts:', error);
+      }
+    });
+
+    // Show artifact info in modal, including the second image and text in between
+    function showArtifactInfo(artifact) {
+      document.getElementById('modalTitle').textContent = artifact.title;
+      document.getElementById('modalImage').src = artifact.image;
+      // Set artifact text between the images
+      document.getElementById('modalText').textContent = artifact.text;
+      // Derive second image by replacing '1' with '2' in the filename
+      document.getElementById('modalImage2').src = artifact.image.replace("1", "2");
+      document.getElementById('artifactModal').style.display = 'block';
+    }
+
+    // Close modal
+    function closeModal() {
+      document.getElementById('artifactModal').style.display = 'none';
+    }
+  </script>
 </body>
 </html>
