@@ -16,7 +16,7 @@ ARTIFACTS = [
     {"title": "Assembly line", "image": "static/industrialImages/fordassembly1.jpg", "text_file": "fordsassemblyline.txt"},
     {"title": "Steam engine", "image": "static/industrialImages/steamengine1.jpg", "text_file": "steamengine.txt"},
     {"title": "Sadler committee report", "image": "static/industrialImages/sadlercommite1.jpg", "text_file": "sadlercommitereport.txt"},
-    {"title": "Iww", "image": "static/industrialImages/iww1.jpg", "text_file": "iww.txt"},
+    {"title": "Iww", "image": "static/industrialImages/IWW1.jpg", "text_file": "iww.txt"},
     {"title": "Spinning jenny", "image": "static/industrialImages/spinningjenny1.jpg", "text_file": "spinning_jenny.txt"},
     {"title": "Combustion engine", "image": "static/industrialImages/combustion1.jpg", "text_file": "combustion_engine.txt"}
 ]
