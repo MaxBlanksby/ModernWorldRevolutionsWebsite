@@ -3,14 +3,22 @@ import os
 
 app = Flask(__name__)
 
-# Define artifacts and their corresponding images
+# Updated artifact list
 ARTIFACTS = [
-    {"title": "AlphaGo", "image": "static/ArtificalImages/alphago1.jpg", "text_file": "alphago.txt"},
-    {"title": "ChatGPT", "image": "static/ArtificalImages/chatgpt1.jpg", "text_file": "chatgpt.txt"},
-    {"title": "Ford Assembly Line", "image": "static/industrialImages/fordassembly1.jpg", "text_file": "fordsassemblyline.txt"},
-    {"title": "Steam Engine", "image": "/static/industrialImages/steamengine1.jpg", "text_file": "steamengine.txt"},
-    {"title": "World Economic Reports", "image": "static/ArtificalImages/worldecon1.jpg", "text_file": "worldecconomic.txt"},
-    {"title": "Sadler Committee Report", "image": "static/industrialImages/sadlercommite1.jpg", "text_file": "sadlercommitereport.txt"}
+    # Artificial Intelligence Revolution
+    {"title": "Alphago", "image": "static/ArtificalImages/alphago1.jpg", "text_file": "alphago.txt"},
+    {"title": "Chatgpt", "image": "static/ArtificalImages/chatgpt1.jpg", "text_file": "chatgpt.txt"},
+    {"title": "Worldeccon forum", "image": "static/ArtificalImages/worldecon1.jpg", "text_file": "worldeccon.txt"},
+    {"title": "Ai in stock trading", "image": "static/ArtificalImages/aiStockT1.jpg", "text_file": "ai_stock_trading.txt"},
+    {"title": "Dalle", "image": "static/ArtificalImages/dalle1.jpg", "text_file": "dalle.txt"},
+    {"title": "Ai in warefare drones", "image": "static/ArtificalImages/aiWareFare1.jpg", "text_file": "ai_warfare_drones.txt"},
+    # Industrial Revolution
+    {"title": "Assembly line", "image": "static/industrialImages/fordassembly1.jpg", "text_file": "fordsassemblyline.txt"},
+    {"title": "Steam engine", "image": "static/industrialImages/steamengine1.jpg", "text_file": "steamengine.txt"},
+    {"title": "Sadler committee report", "image": "static/industrialImages/sadlercommite1.jpg", "text_file": "sadlercommitereport.txt"},
+    {"title": "Iww", "image": "static/industrialImages/iww1.jpg", "text_file": "iww.txt"},
+    {"title": "Spinning jenny", "image": "static/industrialImages/spinningjenny1.jpg", "text_file": "spinning_jenny.txt"},
+    {"title": "Combustion engine", "image": "static/industrialImages/combustion1.jpg", "text_file": "combustion_engine.txt"}
 ]
 
 def load_artifact_text(file_name):
@@ -33,7 +41,7 @@ def get_artifacts():
         {
             "title": artifact["title"],
             "image": artifact["image"],
-            "text": load_artifact_text(artifact["text_file"])
+            "text": load_artifact_text(artifact["text_file"]).replace("\n", "<br>")
         }
         for artifact in ARTIFACTS
     ]

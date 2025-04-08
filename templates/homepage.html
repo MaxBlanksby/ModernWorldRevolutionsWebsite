@@ -4,54 +4,55 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Modern World Revolutions</title>
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-  />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
   <style>
     /* Overall Body Styling */
     body {
       background-color: black;
-      color: white;
-      font-family: 'Arial', sans-serif;
+      color: #f0f0f0;
+      font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
       overflow-x: hidden;
     }
-
     .container {
-      width: 80%;
+      width: 90%;
       margin: auto;
       padding-top: 30px;
       text-align: center;
     }
-
     /* Introduction Section */
-    .introduction {
-      margin-bottom: 20px;
+    #intro {
+      margin-bottom: 50px;
     }
-    .introduction p {
-      font-size: 1.2em;
-      line-height: 1.5em;
-      margin: 0 auto 20px auto;
-      max-width: 700px;
-    }
-
-    /* Title */
-    h1 {
+    #intro h1 {
       font-size: 3em;
-      text-shadow: 2px 2px 10px rgba(255, 0, 0, 0.8);
-      margin-bottom: 40px;
-    }
-
-    /* Section Headings for Grouped Artifacts */
-    .group-heading {
-      font-size: 2.2em;
-      margin-top: 40px;
       margin-bottom: 20px;
-      text-shadow: 2px 2px 10px rgba(255, 0, 0, 0.8);
+      text-shadow: 2px 2px 10px rgba(255,0,0,0.8);
     }
-
+    /* Increase paragraph width to give a wider layout */
+    #intro p {
+      font-size: 1.3em;
+      max-width: 1000px;
+      margin: auto;
+      line-height: 1.5em;
+    }
+    /* Ensure modal and bottom section paragraphs use a wider layout as well */
+    .modal-content p, .bottom-section p {
+      max-width: 1000px;
+      margin: auto;
+      white-space: pre-wrap;
+      line-height: 1.5em;
+    }
+    /* Section Headings for Artifact Groups */
+    section.group {
+      margin: 50px 0;
+    }
+    section.group h2 {
+      font-size: 2.5em;
+      margin-bottom: 30px;
+      text-shadow: 2px 2px 10px rgba(255,0,0,0.8);
+    }
     /* Artifact Buttons Container */
     .artifact-buttons {
       display: flex;
@@ -60,8 +61,7 @@
       gap: 20px;
       margin-bottom: 60px;
     }
-
-    /* Buttons + Startup Animations */
+    /* Artifact Button & Hover Effects */
     .artifact-btn {
       background: none;
       border: none;
@@ -71,41 +71,63 @@
       opacity: 1;
       transform: translateY(0);
     }
-    .artifact-btn img {
-      width: 200px;
-      height: 200px;
-      object-fit: cover;
-      border-radius: 10px;
-      box-shadow: 0px 0px 15px rgba(255, 0, 0, 0.5);
-    }
     .artifact-btn:hover {
       transform: scale(1.05);
-      box-shadow: 0px 0px 25px rgba(255, 0, 0, 0.8);
+      box-shadow: 0px 0px 25px rgba(255,0,0,0.8);
     }
-
-    /* Hidden state for fade-in effect */
     .hidden-artifact {
       opacity: 0;
       transform: translateY(30px);
       transition: opacity 1s ease, transform 1s ease;
     }
-
-    /* Visible state after fade-in */
     .show-artifact {
       opacity: 1;
       transform: translateY(0);
     }
-
-    /* Modal styling */
+    /* Artifact Wrapper & Overlay */
+    .artifact-wrapper {
+      position: relative;
+      width: 200px;
+      height: 200px;
+    }
+    .artifact-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0px 0px 15px rgba(255,0,0,0.5);
+    }
+    .artifact-wrapper .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      border-radius: 10px;
+      font-size: 1.2em;
+      text-align: center;
+      padding: 10px;
+    }
+    .artifact-wrapper:hover .overlay {
+      opacity: 1;
+    }
+    /* Modal Styling */
     .modal {
-      display: none; /* Hidden by default */
+      display: none;
       position: fixed;
       z-index: 999;
       left: 0;
       top: 0;
       width: 100%;
       height: 100%;
-      overflow: auto; /* Enable scroll if needed */
+      overflow: auto;
       background-color: rgba(0, 0, 0, 0.8);
     }
     .modal-content {
@@ -123,7 +145,7 @@
     .modal-content h2 {
       margin-top: 0;
       text-align: center;
-      text-shadow: 2px 2px 10px rgba(255, 0, 0, 0.8);
+      text-shadow: 2px 2px 10px rgba(255,0,0,0.8);
     }
     .modal-content img {
       display: block;
@@ -134,7 +156,7 @@
     .modal-content p {
       margin: 20px auto;
       font-size: 1.2em;
-      max-width: 90%;
+      max-width: 1000px;
       text-align: center;
     }
     .close {
@@ -152,138 +174,237 @@
       color: #fff;
       text-decoration: none;
     }
-
-    /* Sections Below Artifacts */
-    .comparison-section,
-    .conclusion-section,
-    .sources-section {
-      margin: 50px 0;
+    /* Bottom Sections: Comparison, Conclusion, Sources */
+    .bottom-section {
+      margin: 50px auto;
+      max-width: 1000px;
       text-align: left;
-      max-width: 700px;
-      margin-left: auto;
-      margin-right: auto;
+      padding: 20px;
     }
-    .comparison-section h2,
-    .conclusion-section h2,
-    .sources-section h2 {
+    .bottom-section h2 {
       font-size: 2em;
       margin-bottom: 15px;
-      text-shadow: 2px 2px 10px rgba(255, 0, 0, 0.8);
+      text-shadow: 2px 2px 10px rgba(255,0,0,0.8);
     }
-    .comparison-section p,
-    .conclusion-section p,
-    .sources-section p,
-    .sources-section ul {
+    .bottom-section p, .bottom-section ul {
       font-size: 1.2em;
       line-height: 1.6em;
     }
-
+    .bottom-section ul {
+      padding-left: 20px;
+    }
+    /* MLA Sources Section */
+    .sources-mla {
+      margin: 50px auto;
+      max-width: 1000px;
+      text-align: left;
+      padding: 20px;
+      border-top: 2px solid rgba(255,255,255,0.3);
+    }
+    .sources-mla h2 {
+      font-size: 2em;
+      margin-bottom: 15px;
+      color: #ffcc70;
+    }
+    .sources-mla ul {
+      list-style-type: disc;
+      padding-left: 40px;
+    }
+    .sources-mla li {
+      font-size: 1.2em;
+      margin-bottom: 8px;
+    }
+    .sources-mla li a {
+      color: #ffcc70;
+      text-decoration: underline;
+    }
+    /* Image Sources Section */
+    .image-sources {
+      margin: 50px auto;
+      max-width: 1000px;
+      text-align: left;
+      padding: 20px;
+      border-top: 2px solid rgba(255,255,255,0.3);
+    }
+    .image-sources h2 {
+      font-size: 2em;
+      margin-bottom: 15px;
+      color: #ffcc70;
+    }
+    .image-sources ul {
+      list-style-type: disc;
+      padding-left: 40px;
+    }
+    .image-sources li {
+      font-size: 1.2em;
+      margin-bottom: 8px;
+    }
+    .image-sources li a {
+      color: #ffcc70;
+      text-decoration: underline;
+    }
+    .comparison-section p,
+.conclusion-section p {
+  text-align: center;
+}
   </style>
 </head>
 <body>
   <div class="container">
     <!-- Introduction Section -->
-    <div class="introduction">
+    <section id="intro">
+      <h1>Modern World Revolutions</h1>
       <p>
-        In the ever-changing tapestry of the modern world, revolutions and innovations intertwine,
-        shaping our future. Explore these artifacts that highlight pivotal moments in technological
-        and industrial evolution.
+        The Industrial Revolution of the 18th–19th centuries and the ongoing AI Revolution of the 21st century are often compared as transformative eras in human history. Both revolutions are defined by dramatic leaps in automation that fundamentally changed how work is done. In the Industrial Revolution, mechanization took over physical labor, replacing handcraft and animal power with machines. In the AI Revolution, sophisticated algorithms and computers are increasingly taking over mental labor, performing tasks that require cognition, decision-making, and creativity. What makes a “revolution” in this context is the scale and speed of change – a burst of innovation that restructures economies, societies, and cultures. These two periods are worthy of comparison because each introduced unprecedented productivity while also disrupting labor and social structures.
+      
+       Framing these revolutions through the lens of labor and automation shows clear parallels. The Industrial Revolution introduced inventions like steam engines and power looms that automated manual work, boosting output but also displacing many skilled workers. Similarly, the AI Revolution is introducing machine learning systems and robots that automate intellectual and service tasks, raising productivity even as they spark debates about job displacement. Both revolutions unleashed intended benefits – greater production, new industries, higher overall wealth – alongside unintended consequences such as harsh labor conditions in 19th-century factories or algorithmic biases and privacy concerns in today’s AI systems. As we examine key artifacts from each era, we can see how physical automation and mental automation each transformed society in economic, social, political, and cultural dimensions.
+      </p>
+    </section>
+
+    <!-- Group 1: Industrial Revolution – Physical Automation Pioneers -->
+    <section class="group" id="group1">
+      <h2>Industrial Revolution – Physical Automation Pioneers</h2>
+      <div id="group1Buttons" class="artifact-buttons"></div>
+    </section>
+
+    <!-- Group 2: Industrial Revolution – Socioeconomic Impact & Later Innovations -->
+    <section class="group" id="group2">
+      <h2>Industrial Revolution – Socioeconomic Impact & Later Innovations</h2>
+      <div id="group2Buttons" class="artifact-buttons"></div>
+    </section>
+
+    <!-- Group 3: AI Revolution – Mental Automation Pioneers -->
+    <section class="group" id="group3">
+      <h2>AI Revolution – Mental Automation Pioneers</h2>
+      <div id="group3Buttons" class="artifact-buttons"></div>
+    </section>
+
+    <!-- Group 4: AI Revolution – Modern Applications & Societal Impact -->
+    <section class="group" id="group4">
+      <h2>AI Revolution – Modern Applications & Societal Impact</h2>
+      <div id="group4Buttons" class="artifact-buttons"></div>
+    </section>
+
+    <!-- Bottom Sections -->
+    <div class="bottom-section comparison-section">
+      <h2>Comparison: Physical vs. Mental Automation Revolutions</h2>
+      <p>
+        The Industrial and AI Revolutions share fundamental parallels but differ significantly in focus and scope. The Industrial Revolution automated physical labor, transforming economies through factories, steam engines, and mass production. It reshaped global economies, creating vast wealth and new job categories while initially displacing artisans and manual laborers. Similarly, the AI Revolution automates mental tasks, reshaping services and knowledge industries, enhancing productivity, and creating new roles while threatening traditional white-collar jobs.
+
+          Economically, both revolutions boosted productivity and wealth but initially concentrated benefits in the hands of technology owners, prompting efforts at redistribution through labor movements and policy interventions. The AI Revolution differs mainly in its rapid pace and global scale, demanding swift adaptation to workforce changes and wealth distribution issues through mechanisms like re-skilling or universal basic income.
+
+          Socially, each revolution profoundly altered daily life and community structures. The Industrial Revolution led to urbanization, new family dynamics, and consumer culture, while the AI Revolution fosters digital communities, remote work, and shifts in work-life boundaries. Both revolutions sparked concerns over social inequality and mental health, prompting education reforms and new social norms. Notably, each had unintended consequences—the Industrial Revolution’s environmental issues, and the AI Revolution’s data privacy and social cohesion challenges.
+
+          Politically, both revolutions redistributed power domestically and internationally, sparking new ideologies and regulations. Industrial capitalism provoked labor movements and policy responses, paralleling today's debates on regulating tech monopolies, surveillance, and AI ethics. Geopolitically, industrialization intensified colonialism and global rivalries; similarly, AI drives modern technological supremacy competitions and new regulatory efforts to prevent global instability.
       </p>
     </div>
 
-    <!-- Title -->
-    <h1>Surveillance &amp; The Modern World</h1>
-
-    <!-- AI Revolution Section -->
-    <div id="aiSection">
-      <h2 class="group-heading">AI Revolution</h2>
-      <div id="aiButtonsContainer" class="artifact-buttons"></div>
-    </div>
-
-    <!-- Industrial Revolution Section -->
-    <div id="industrialSection">
-      <h2 class="group-heading">Industrial Revolution</h2>
-      <div id="industrialButtonsContainer" class="artifact-buttons"></div>
-    </div>
-
-    <!-- Comparison Piece -->
-    <div class="comparison-section">
-      <h2>Comparison Piece</h2>
-      <p>
-        Compare how industrial and technological revolutions have impacted human labor,
-        societal norms, and global economies.
-      </p>
-    </div>
-
-    <!-- Conclusion -->
-    <div class="conclusion-section">
+    <div class="bottom-section conclusion-section">
       <h2>Conclusion</h2>
       <p>
-        From steam engines to artificial intelligence, each revolution leaves a profound imprint
-        on humanity's trajectory. Understanding these shifts can guide us toward a more mindful,
-        equitable future.
+        Both revolutions fundamentally reshaped human civilization by achieving profound increases in productivity, wealth, and innovation, while generating significant social, economic, and political challenges. The Industrial Revolution set the stage for modernity, establishing standards of living and institutions that manage industrial society’s complex outcomes. The AI Revolution, still unfolding, holds promise for significant advancements in healthcare, education, and global connectivity, but also presents risks of job displacement, inequality, and misuse of power.
+
+        The lasting impact of both revolutions hinges upon human decisions: thoughtful policies and inclusive approaches can ensure broad benefits and mitigate unintended harms. Ultimately, technology itself does not determine history; human values and governance do. Learning from the Industrial Revolution, societies today can proactively steer the AI Revolution towards a future characterized by widespread prosperity, ethical use, and enhanced human well-being.
+
       </p>
     </div>
 
-    <!-- Sources -->
-    <div class="sources-section">
-      <h2>Sources</h2>
+    <!-- MLA Source Citations Section -->
+    <div class="bottom-section sources-mla">
+      <h2>Citations</h2>
       <ul>
-        <li>Author, A. (Year). Title of the source. Publisher.</li>
-        <li>Author, B. (Year). Another reference. Journal/Website/Publisher.</li>
+        <li><a href="https://www.damcogroup.com/blogs/ai-in-stock-market-prediction" target="_blank">Damco Group. <i>AI in Stock Market Prediction</i>. damcogroup.com.</a></li>
+        <li><a href="https://intrinio.com/blog/ai-for-stock-trading-benefits-risks-and-how-to-use-it" target="_blank">Intrinio. <i>AI for Stock Trading: Benefits, Risks, and How to Use It</i>. intrinio.com.</a></li>
+        <li><a href="https://dalle3.ai/" target="_blank"><i>DALL·E 3 AI</i>. dalle3.ai.</a></li>
+        <li><a href="https://news.artnet.com/art-world/dalle-removes-waitlist-2183658" target="_blank">Schindler, Sarah. “DALL·E Removes Waitlist.” <i>Artnet News</i>, 2023.</a></li>
+        <li><a href="https://www.forbes.com/sites/cognitiveworld/2019/01/14/the-weaponization-of-artificial-intelligence/" target="_blank">Marr, Bernard. “The Weaponization of Artificial Intelligence.” <i>Forbes</i>, 14 Jan. 2019.</a></li>
+        <li><a href="https://nordicdefencereview.com/the-ai-battlefield-how-artificial-intelligence-is-revolutionizing-modern-warfare/" target="_blank"><i>The AI Battlefield</i>. Nordic Defence Review.</a></li>
+        <li><a href="https://www.faribaultmill.com/pages/spinning-jenny" target="_blank"><i>The Spinning Jenny</i>. Faribault Mill.</a></li>
+        <li><a href="https://schoolhistory.co.uk/notes/spinning-jenny/" target="_blank"><i>Spinning Jenny History Notes</i>. School History.</a></li>
+        <li><a href="https://cylinderheadmfg.com/internal-combustion-engine-working-princple/" target="_blank"><i>Internal Combustion Engine Principles</i>. Cylinder Head MFG.</a></li>
+        <li><a href="https://www.britannica.com/money/assembly-line" target="_blank"><i>Assembly Line</i>. Britannica Money.</a></li>
+        <li><a href="https://www.hotrod.com/features/vintage-gm-assembly-line-images/" target="_blank"><i>Vintage GM Assembly Line</i>. Hot Rod Magazine.</a></li>
+        <li><a href="https://depts.washington.edu/iww/" target="_blank">University of Washington. <i>Industrial Workers of the World History Project</i>.</a></li>
+        <li><a href="https://itsgoingdown.org/phone-zap-to-support-locked-out-seattle-iww-workers/" target="_blank">“Support Locked-Out Seattle IWW Workers.” <i>It’s Going Down</i>.</a></li>
+      </ul>
+    </div>
+
+    <!-- Image Source Attribution Section -->
+    <div class="bottom-section image-sources">
+      <h2>Image Sources</h2>
+      <ul>
+        <li><a href="https://www.damcogroup.com/blogs/ai-in-stock-market-prediction" target="_blank">AI in Stock Trading 1 – Damco Group</a></li>
+        <li><a href="https://intrinio.com/blog/ai-for-stock-trading-benefits-risks-and-how-to-use-it" target="_blank">AI in Stock Trading 2 – Intrinio</a></li>
+        <li><a href="https://dalle3.ai/" target="_blank">DALL·E 1 – dalle3.ai</a></li>
+        <li><a href="https://news.artnet.com/art-world/dalle-removes-waitlist-2183658" target="_blank">DALL·E 2 – Artnet News</a></li>
+        <li><a href="https://www.forbes.com/sites/cognitiveworld/2019/01/14/the-weaponization-of-artificial-intelligence/" target="_blank">AI in Warfare 1 – Forbes</a></li>
+        <li><a href="https://nordicdefencereview.com/the-ai-battlefield-how-artificial-intelligence-is-revolutionizing-modern-warfare/" target="_blank">AI in Warfare 2 – Nordic Defence Review</a></li>
+        <li><a href="https://www.faribaultmill.com/pages/spinning-jenny" target="_blank">Spinning Jenny 1 – Faribault Mill</a></li>
+        <li><a href="https://schoolhistory.co.uk/notes/spinning-jenny/" target="_blank">Spinning Jenny 2 – School History</a></li>
+        <li><a href="https://cylinderheadmfg.com/internal-combustion-engine-working-princple/" target="_blank">Combustion Engine 1 – Cylinder Head MFG</a></li>
+        <li><a href="https://www.britannica.com/money/assembly-line" target="_blank">Assembly Line 1 – Britannica</a></li>
+        <li><a href="https://www.hotrod.com/features/vintage-gm-assembly-line-images/" target="_blank">Assembly Line 2 – Hot Rod Magazine</a></li>
+        <li><a href="https://depts.washington.edu/iww/" target="_blank">IWW 1 – University of Washington</a></li>
+        <li><a href="https://itsgoingdown.org/phone-zap-to-support-locked-out-seattle-iww-workers/" target="_blank">IWW 2 – It's Going Down</a></li>
       </ul>
     </div>
   </div>
 
-  <!-- Modal for Artifact Details -->
+  <!-- Modal Popup -->
   <div id="artifactModal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="closeModal()">&times;</span>
       <h2 id="modalTitle"></h2>
-      <!-- First Image -->
       <img id="modalImage" src="" alt="Artifact Image" />
-      <!-- Text displayed between images -->
       <p id="modalText"></p>
-      <!-- Second Image (derived from the first image by replacing '1' with '2') -->
       <img id="modalImage2" src="" alt="Artifact Secondary Image" />
     </div>
   </div>
 
-  <!-- JavaScript to Fetch Artifacts & Handle Modal -->
+  <!-- JavaScript for Populating Artifacts and Handling Modal -->
   <script>
     document.addEventListener("DOMContentLoaded", async () => {
       try {
         const response = await fetch('/artifacts');
         const artifacts = await response.json();
 
-        // Separate artifacts into AI and Industrial groups
-        const aiArtifacts = [];
-        const industrialArtifacts = [];
+        // Predefined titles for each subgroup
+        const group1Titles = ["Assembly line", "Steam engine", "Spinning jenny"];
+        const group2Titles = ["Sadler committee report", "Iww", "Combustion engine"];
+        const group3Titles = ["Alphago", "Chatgpt", "Dalle"];
+        const group4Titles = ["Worldeccon forum", "Ai in stock trading", "Ai in warefare drones"];
 
-        artifacts.forEach((artifact) => {
-          // Grouping criteria: "AlphaGo", "ChatGPT", and "World Economic Reports" belong to AI
-          if (artifact.title === "AlphaGo" || artifact.title === "ChatGPT" || artifact.title === "World Economic Reports") {
-            aiArtifacts.push(artifact);
-          } else {
-            industrialArtifacts.push(artifact);
+        const group1Artifacts = [];
+        const group2Artifacts = [];
+        const group3Artifacts = [];
+        const group4Artifacts = [];
+
+        artifacts.forEach(artifact => {
+          if (group1Titles.includes(artifact.title)) {
+            group1Artifacts.push(artifact);
+          } else if (group2Titles.includes(artifact.title)) {
+            group2Artifacts.push(artifact);
+          } else if (group3Titles.includes(artifact.title)) {
+            group3Artifacts.push(artifact);
+          } else if (group4Titles.includes(artifact.title)) {
+            group4Artifacts.push(artifact);
           }
         });
 
-        // Function to create buttons in a given container
+        // Function to create artifact buttons in a container
         function createArtifactButtons(containerId, artifactArray) {
           const container = document.getElementById(containerId);
           artifactArray.forEach((artifact, index) => {
             const btn = document.createElement('button');
             btn.classList.add('artifact-btn', 'hidden-artifact');
-            btn.innerHTML = `<img src="${artifact.image}" alt="${artifact.title}" />`;
-
-            btn.addEventListener('click', () => {
-              showArtifactInfo(artifact);
-            });
-
+            btn.innerHTML = `
+              <div class="artifact-wrapper">
+                <img src="${artifact.image}" alt="${artifact.title}" />
+                <div class="overlay">${artifact.title}</div>
+              </div>
+            `;
+            btn.addEventListener('click', () => showArtifactInfo(artifact));
             container.appendChild(btn);
-
-            // Staggered fade-in animation
             setTimeout(() => {
               btn.classList.remove('hidden-artifact');
               btn.classList.add('show-artifact');
@@ -291,21 +412,21 @@
           });
         }
 
-        createArtifactButtons('aiButtonsContainer', aiArtifacts);
-        createArtifactButtons('industrialButtonsContainer', industrialArtifacts);
+        createArtifactButtons('group1Buttons', group1Artifacts);
+        createArtifactButtons('group2Buttons', group2Artifacts);
+        createArtifactButtons('group3Buttons', group3Artifacts);
+        createArtifactButtons('group4Buttons', group4Artifacts);
 
       } catch (error) {
         console.error('Error fetching artifacts:', error);
       }
     });
 
-    // Show artifact info in modal, including the second image and text in between
+    // Display artifact details in the modal popup using innerHTML for proper formatting
     function showArtifactInfo(artifact) {
       document.getElementById('modalTitle').textContent = artifact.title;
       document.getElementById('modalImage').src = artifact.image;
-      // Set artifact text between the images
-      document.getElementById('modalText').textContent = artifact.text;
-      // Derive second image by replacing '1' with '2' in the filename
+      document.getElementById('modalText').innerHTML = artifact.text;
       document.getElementById('modalImage2').src = artifact.image.replace("1", "2");
       document.getElementById('artifactModal').style.display = 'block';
     }
