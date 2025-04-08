@@ -8,7 +8,7 @@ ARTIFACTS = [
     # Artificial Intelligence Revolution
     {"title": "Alphago", "image": "static/ArtificalImages/alphago1.jpg", "text_file": "alphago.txt"},
     {"title": "Chatgpt", "image": "static/ArtificalImages/chatgpt1.jpg", "text_file": "chatgpt.txt"},
-    {"title": "Worldeccon forum", "image": "static/ArtificalImages/worldecon1.jpg", "text_file": "worldeccon.txt"},
+    {"title": "Worldeccon forum", "image": "static/ArtificalImages/worldecon1.jpg", "text_file": "worldecconomic.txt"},
     {"title": "Ai in stock trading", "image": "static/ArtificalImages/aiStockT1.jpg", "text_file": "ai_stock_trading.txt"},
     {"title": "Dalle", "image": "static/ArtificalImages/dalle1.jpg", "text_file": "dalle.txt"},
     {"title": "Ai in warefare drones", "image": "static/ArtificalImages/aiWareFare1.jpg", "text_file": "ai_warfare_drones.txt"},
